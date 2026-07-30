@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI Image Classifier workflow</title>
+  <desc id="desc">A flow diagram showing how a Streamlit image upload is processed by MobileNetV2 and displayed as top predictions.</desc>
+  <rect width="1400" height="900" fill="#f7fbff"/>
+  <text x="70" y="85" fill="#0f172a" font-family="Arial, sans-serif" font-size="54" font-weight="700">AI Image Classifier: Streamlit + MobileNetV2</text>
+  <text x="72" y="125" fill="#334155" font-family="Arial, sans-serif" font-size="24">How an uploaded image becomes top-3 ImageNet predictions</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .box-title{font:700 29px Arial,sans-serif;fill:#0f172a}.box-text{font:20px Arial,sans-serif;fill:#334155}.arrow{stroke:#2563eb;stroke-width:6;marker-end:url(#arrow)}.fn{font:24px Arial,sans-serif;fill:#93c5fd}.desc{font:24px Arial,sans-serif;fill:#f8fafc}
+    </style>
+  </defs>
+
+  <g transform="translate(75 225)">
+    <rect width="220" height="270" rx="24" fill="#dbeafe" stroke="#1e293b" stroke-width="3"/>
+    <text x="18" y="48" class="box-title">1. User Interface</text>
+    <text x="18" y="100" class="box-text">Streamlit page</text><text x="18" y="132" class="box-text">file_uploader</text><text x="18" y="164" class="box-text">+ button</text>
+  </g>
+  <line x1="303" y1="360" x2="348" y2="360" class="arrow"/>
+  <g transform="translate(340 225)">
+    <rect width="220" height="270" rx="24" fill="#dcfce7" stroke="#1e293b" stroke-width="3"/>
+    <text x="18" y="48" class="box-title">2. Load Model</text>
+    <text x="18" y="100" class="box-text">MobileNetV2</text><text x="18" y="132" class="box-text">pretrained on</text><text x="18" y="164" class="box-text">ImageNet</text><text x="18" y="196" class="box-text">cached by Streamlit</text>
+  </g>
+  <line x1="568" y1="360" x2="613" y2="360" class="arrow"/>
+  <g transform="translate(605 225)">
+    <rect width="220" height="270" rx="24" fill="#fef3c7" stroke="#1e293b" stroke-width="3"/>
+    <text x="18" y="48" class="box-title">3. Preprocess</text>
+    <text x="18" y="100" class="box-text">PIL → NumPy</text><text x="18" y="132" class="box-text">resize 224×224</text><text x="18" y="164" class="box-text">preprocess_input</text><text x="18" y="196" class="box-text">add batch axis</text>
+  </g>
+  <line x1="833" y1="360" x2="878" y2="360" class="arrow"/>
+  <g transform="translate(870 225)">
+    <rect width="220" height="270" rx="24" fill="#ede9fe" stroke="#1e293b" stroke-width="3"/>
+    <text x="18" y="48" class="box-title">4. Predict</text>
+    <text x="18" y="100" class="box-text">model.predict(...)</text><text x="18" y="132" class="box-text">returns class</text><text x="18" y="164" class="box-text">probabilities</text>
+  </g>
+  <line x1="1098" y1="360" x2="1143" y2="360" class="arrow"/>
+  <g transform="translate(1135 225)">
+    <rect width="220" height="270" rx="24" fill="#ffe4e6" stroke="#1e293b" stroke-width="3"/>
+    <text x="18" y="48" class="box-title">5. Display</text>
+    <text x="18" y="100" class="box-text">decode top 3</text><text x="18" y="132" class="box-text">labels + scores</text><text x="18" y="164" class="box-text">shown in app</text>
+  </g>
+
+  <rect x="90" y="590" width="1220" height="225" rx="28" fill="#0f172a"/>
+  <text x="130" y="630" fill="#e0f2fe" font-family="Arial, sans-serif" font-size="30" font-weight="700">Function map</text>
+  <text x="145" y="685" class="fn">load_model()</text><text x="390" y="685" class="desc">→ creates the pretrained CNN once</text>
+  <text x="145" y="723" class="fn">preprocess_image()</text><text x="390" y="723" class="desc">→ formats the uploaded image for MobileNetV2</text>
+  <text x="145" y="761" class="fn">classify_image()</text><text x="390" y="761" class="desc">→ runs inference and handles errors</text>
+  <text x="145" y="799" class="fn">main()</text><text x="390" y="799" class="desc">→ builds the Streamlit app and displays results</text>
+</svg>
